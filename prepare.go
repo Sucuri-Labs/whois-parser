@@ -98,6 +98,8 @@ func Prepare(text, ext string) (string, bool) { //nolint:cyclop
 		return prepareSK(text), true
 	case "gg":
 		return prepareGG(text), true
+	case "pt":
+		return preparePT(text), true
 	default:
 		return text, false
 	}
@@ -1560,4 +1562,32 @@ func prepareGG(text string) string {
 
 	return result
 
+}
+
+// preparePT do prepare the .ua domain
+func preparePT(text string) string {
+	var result string
+
+	tokens := map[string]string{
+		"Owner Name":             "Registrant Name",
+		"Owner Address":          "Registrant Address",
+		"Owner Locality":         "Registrant City",
+		"Owner Locality ZipCode": "Registrant Province",
+		"Owner ZipCode":          "Registrant ZipCode",
+		"Owner Country Code":     "Registrant Country Code",
+		"Owner Email":            "Registrant Email",
+	}
+
+	for _, v := range strings.Split(text, "\n") {
+		v = strings.TrimSpace(v)
+		if strings.Contains(v, ":") {
+			vs := strings.SplitN(v, ":", 2)
+			if t, ok := tokens[strings.TrimSpace(vs[0])]; ok {
+				v = fmt.Sprintf("%s: %s", t, vs[1])
+			}
+		}
+		result += v + "\n"
+	}
+
+	return result
 }

@@ -161,9 +161,10 @@ func Parse(text string) (whoisInfo WhoisInfo, err error) { //nolint:cyclop
 			}
 			ns := strings.SplitN(name, " ", 2)
 			name = strings.TrimSpace("registrant " + ns[1])
+
 			if ns[0] == "registrar" || ns[0] == "registration" {
 				parseContact(registrar, name, value)
-			} else if ns[0] == "registrant" || ns[0] == "holder" {
+			} else if ns[0] == "registrant" || ns[0] == "holder" || ns[0] == "owner" {
 				parseContact(registrant, name, value)
 			} else if ns[0] == "admin" || ns[0] == "administrative" {
 				parseContact(administrative, name, value)
