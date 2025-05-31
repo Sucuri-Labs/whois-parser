@@ -1572,10 +1572,13 @@ func preparePT(text string) string {
 		"Owner Name":             "Registrant Name",
 		"Owner Address":          "Registrant Address",
 		"Owner Locality":         "Registrant City",
-		"Owner Locality ZipCode": "Registrant Province",
+		"Owner Locality ZipCode": "Registrant State/Province",
 		"Owner ZipCode":          "Registrant ZipCode",
 		"Owner Country Code":     "Registrant Country Code",
 		"Owner Email":            "Registrant Email",
+
+		"Admin Locality":         "Admin City",
+		"Admin Locality ZipCode": "Admin State/Province",
 	}
 
 	for _, v := range strings.Split(text, "\n") {
